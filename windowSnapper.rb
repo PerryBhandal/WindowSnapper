@@ -7,19 +7,19 @@ position = nil
 height = nil
 
 def getScreenDimensions()
-	screenSizeStr = `xdpyinfo | grep 'dimensions:'`
-	dimensionsCut = screenSizeStr.scan(/dimensions.*?(\d+).(\d+) /)
-	horizontal = dimensionsCut[0][0].to_i
-	vertical = dimensionsCut[0][1].to_i-PANEL_HEIGHT
-	return { :horizontal => horizontal, :vertical => vertical}
+  screenSizeStr = `xdpyinfo | grep 'dimensions:'`
+  dimensionsCut = screenSizeStr.scan(/dimensions.*?(\d+).(\d+) /)
+  horizontal = dimensionsCut[0][0].to_i
+  vertical = dimensionsCut[0][1].to_i-PANEL_HEIGHT
+  return { :horizontal => horizontal, :vertical => vertical}
 end
 
 if ARGV[0] != nil
-	position = ARGV[0]
+  position = ARGV[0]
 end
 
 if ARGV[1] != nil
-	height = ARGV[1]
+  height = ARGV[1]
 end
 
 screenDimensions = getScreenDimensions()
@@ -28,7 +28,20 @@ screenDimensions = getScreenDimensions()
 system("wmctrl -r :ACTIVE: -b remove,maximized_horz,maximized_vert")
 
 if position == "left"
-	system("wmctrl -r :ACTIVE: -e 0,0,0,#{screenDimensions[:horizontal]/2},#{screenDimensions[:vertical]}")
+  system("wmctrl -r :ACTIVE: -e 0,0,0,#{screenDimensions[:horizontal]/2},#{screenDimensions[:vertical]}")
+  if height == "top"
+    system("wmctrl -r :ACTIVE: -e 0,0,0,-1,#{screenDimensions[:vertical]/2}")
+  elsif height == "bottom"
+    system("wmctrl -r :ACTIVE: -e 0,0,#{screenDimensions[:vertical]},-1,#{screenDimensions[:vertical]/2}")
+  end
 elsif position == "right"
-	system("wmctrl -r :ACTIVE: -e 0,#{screenDimensions[:horizontal]/2},0,#{screenDimensions[:horizontal]/2},#{screenDimensions[:vertical]}")
+  system("wmctrl -r :ACTIVE: -e 0,#{screenDimensions[:horizontal]/2},0,#{screenDimensions[:horizontal]/2},#{screenDimensions[:vertical]}")
+  if height == "top"
+    system("wmctrl -r :ACTIVE: -e 0,#{screenDimensions[:horizontal]/2},0,-1,#{screenDimensions[:vertical]/2}")
+  elsif height == "bottom"
+    system("wmctrl -r :ACTIVE: -e 0,-1,#{screenDimensions[:vertical]/2},-1,#{screenDimensions[:vertical]/2}")
+  end
+
 end
+
+
