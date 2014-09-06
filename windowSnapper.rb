@@ -1,5 +1,3 @@
-#!/home/perry/.rvm/rubides/ruby-2.1.2/bin ruby
-
 # Panel height is the height of our top panel. To find it, run
 # xdotool getmouselocation while you have your mouse at the botom of the panel.
 # Enter the y value to the constant below.
