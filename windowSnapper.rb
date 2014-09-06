@@ -29,19 +29,13 @@ system("wmctrl -r :ACTIVE: -b remove,maximized_horz,maximized_vert")
 
 if position == "left"
   system("wmctrl -r :ACTIVE: -e 0,0,0,#{screenDimensions[:horizontal]/2},#{screenDimensions[:vertical]}")
-  if height == "top"
-    system("wmctrl -r :ACTIVE: -e 0,0,0,-1,#{screenDimensions[:vertical]/2}")
-  elsif height == "bottom"
-    system("wmctrl -r :ACTIVE: -e 0,0,#{screenDimensions[:vertical]},-1,#{screenDimensions[:vertical]/2}")
-  end
 elsif position == "right"
   system("wmctrl -r :ACTIVE: -e 0,#{screenDimensions[:horizontal]/2},0,#{screenDimensions[:horizontal]/2},#{screenDimensions[:vertical]}")
-  if height == "top"
-    system("wmctrl -r :ACTIVE: -e 0,#{screenDimensions[:horizontal]/2},0,-1,#{screenDimensions[:vertical]/2}")
-  elsif height == "bottom"
-    system("wmctrl -r :ACTIVE: -e 0,-1,#{screenDimensions[:vertical]/2},-1,#{screenDimensions[:vertical]/2}")
-  end
-
 end
 
+if height == "top"
+  system("wmctrl -r :ACTIVE: -e 0,-1,0,-1,#{screenDimensions[:vertical]/2}")
+elsif height == "bottom"
+  system("wmctrl -r :ACTIVE: -e 0,-1,#{screenDimensions[:vertical]/2},-1,#{screenDimensions[:vertical]/2}")
+end
 
