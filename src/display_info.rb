@@ -4,20 +4,25 @@ class Monitors
     @monitors = []
   end
 
-  def whichMonitor(startX)
-
+  def getWindowMonitor(startX, startY)
     @monitors.each do |monitor|
-      if startX >= monitor[:start] and startX <= monitor[:end]
-        puts "Window at position #{startX} is on monitor #{monitor[:name]}"
+      if (startX >= monitor[:startX] and startX <= monitor[:endX]) and (startX >= monitor[:startY] and startY <= monitor[:endY])
+        return monitor
       end
-      
     end
 
+    #If we reach this point, we've asked for a window with starting dimensions that are unrecognized.
+    raise(ArgumentError, "%d or %d is not within any monitor's dimensions" % [startX, startY])
   end
 
-  def addMonitor(name, startX, width)
-    @monitors.push({:name => name, :start => startX, :end => (startX+width-1)})
+  def addMonitor(name, startX, width, startY, height)
+    monitorInfo = {}
+    monitorInfo[:startX] = startX
+    monitorInfo[:endX] = (startX + width) - 1
+    monitorInfo[:startY] = startY
+    monitorInfo[:endY] = (startY + height) - 1
+    monitorInfo[:name] = name
+    @monitors.push(monitorInfo)
   end
 
 end
-
