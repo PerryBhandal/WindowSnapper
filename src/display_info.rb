@@ -20,7 +20,7 @@ class Monitors
     monitorInfo[:startX] = startX
     monitorInfo[:endX] = (startX + width) - 1
     monitorInfo[:startY] = startY
-    monitorInfo[:endY] = (startY + height) - 1
+    monitorInfo[:endY] = (startY + height)
     monitorInfo[:name] = name
     @monitors.push(monitorInfo)
   end
