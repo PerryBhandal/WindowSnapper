@@ -18,8 +18,10 @@ class Monitors
   def addMonitor(name, startX, width, startY, height)
     monitorInfo = {}
     monitorInfo[:startX] = startX
+    monitorInfo[:width] = width
     monitorInfo[:endX] = (startX + width) - 1
     monitorInfo[:startY] = startY
+    monitorInfo[:height] = height
     monitorInfo[:endY] = (startY + height)
     monitorInfo[:name] = name
     @monitors.push(monitorInfo)
